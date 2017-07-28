@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Easy to use javascript social and messanger share library">
+    <meta name="author" content="Dmitry Elfimov <elfimov@gmail.com>">
+
+    <title>JS-Share</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="share.js"></script>
+
+    <script><!--
+    jQuery(function($) {
+        $(document).on('click', '.social_share', function () {
+            Share.go(this);
+        });
+    });
+    --></script>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+    <div class="">
+        <h1>JS-Share</h1>
+        <p class="lead">
+            Easy to use javascript social and messanger share library. Supports VK.com, ok.ru, facebook.com, livejournal.com, Twitter, Google+, Mail.ru, Whatsapp, Telegram.
+        </p>
+    </div>
+
+    <div class="">
+    <p>Share:
+        <button class="btn btn-default social_share" data-type="vk">ВКонтакте</button>
+        <button class="btn btn-default social_share" data-type="fb">Facebook</button>
+        <button class="btn btn-default social_share" data-type="tw">Twitter</button>
+        <button class="btn btn-default social_share" data-type="lj">LiveJournal</button>
+        <button class="btn btn-default social_share" data-type="ok">Одноклассники</button>
+        <button class="btn btn-default social_share" data-type="mailru">Mail.Ru</button>
+        <button class="btn btn-default social_share" data-type="gplus">Google+</button>
+        <button class="btn btn-default social_share" data-type="telegram">Telegram</button>
+        <button class="btn btn-default social_share" data-type="whatsapp">Whatsapp</button>
+    </p>
+    </div>
+
+
+</div>
+
+</body>
+</html>
+
+
+
