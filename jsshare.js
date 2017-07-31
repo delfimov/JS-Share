@@ -1,5 +1,11 @@
-Share = {
+JSShare = {
     /**
+     * JS-Share - vanilla javascript social networks and messengers sharing
+     * https://github.com/delfimov/JS-Share
+     *
+     * Copyright (c) 2017 by Dmitry Elfimov
+     * Released under the MIT License.
+     * http://www.opensource.org/licenses/mit-license.php
      *
      * Minimum setup example:
      *
@@ -18,13 +24,13 @@ Share = {
     </div>
 
     $(document).on('click', '.social_share', function(){
-        return Share.go(this);
+        return JSShare.go(this);
     });
 
      *
      * Inline example:
      *
-    <a href="#" onclick="return share.go(this)" data-type="fb" data-fb-api-id="123">I like it</a>
+    <a href="#" onclick="return JSShare.go(this)" data-type="fb" data-fb-api-id="123">I like it</a>
 
      *
      * @param element Object - DOM element
@@ -85,13 +91,13 @@ Share = {
     },
 
     unknown: function(options) {
-        return encodeURIComponent(Share._getURL(options));
+        return encodeURIComponent(JSShare._getURL(options));
     },
 
     // vk.com - ВКонтакте
     vk: function(options) {
         return 'http://vkontakte.ru/share.php?'
-            + 'url='          + encodeURIComponent(Share._getURL(options))
+            + 'url='          + encodeURIComponent(JSShare._getURL(options))
             + '&title='       + encodeURIComponent(options.title)
             + '&description=' + encodeURIComponent(options.text)
             + '&image='       + encodeURIComponent(options.image)
@@ -102,12 +108,12 @@ Share = {
     ok: function(options) {
         return 'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1'
             + '&st.comments=' + encodeURIComponent(options.text)
-            + '&st._surl='    + encodeURIComponent(Share._getURL(options));
+            + '&st._surl='    + encodeURIComponent(JSShare._getURL(options));
     },
 
     // Facebook
     fb: function(options) {
-        var url = Share._getURL(options);
+        var url = JSShare._getURL(options);
         return 'https://www.facebook.com/dialog/share?'
             +'app_id=' + options.fb_api_id
             +'&display=popup'
@@ -119,13 +125,13 @@ Share = {
     lj: function(options) {
         return 'http://livejournal.com/update.bml?'
             + 'subject='      + encodeURIComponent(options.title)
-            + '&event='       + encodeURIComponent(options.text + '<br/><a href="' + Share._getURL(options) + '">' + options.title + '</a>')
+            + '&event='       + encodeURIComponent(options.text + '<br/><a href="' + JSShare._getURL(options) + '">' + options.title + '</a>')
             + '&transform=1';
     },
 
     // Twitter
     tw: function(options) {
-        var url = Share._getURL(options);
+        var url = JSShare._getURL(options);
         return 'http://twitter.com/share?'
             + 'text='         + encodeURIComponent(options.title)
             + '&url='         + encodeURIComponent(url)
@@ -135,7 +141,7 @@ Share = {
     // Mail.ru
     mailru: function(options) {
         return 'http://connect.mail.ru/share?'
-            + 'url='          + encodeURIComponent(Share._getURL(options))
+            + 'url='          + encodeURIComponent(JSShare._getURL(options))
             + '&title='       + encodeURIComponent(options.title)
             + '&description=' + encodeURIComponent(options.text)
             + '&imageurl='    + encodeURIComponent(options.image);
@@ -145,25 +151,25 @@ Share = {
     // Google+
     gplus: function (options) {
         return 'https://plus.google.com/share?url='
-            + encodeURIComponent(Share._getURL(options));
+            + encodeURIComponent(JSShare._getURL(options));
     },
 
     telegram: function (options) {
-        return 'tg://msg_url?url=' + encodeURIComponent(Share._getURL(options));
+        return 'tg://msg_url?url=' + encodeURIComponent(JSShare._getURL(options));
     },
 
     whatsapp: function (options) {
-        return 'whatsapp://send?text=' + encodeURIComponent(Share._getURL(options));
+        return 'whatsapp://send?text=' + encodeURIComponent(JSShare._getURL(options));
     },
 
     viber: function (options) {
-        return 'viber://forward?text=' + encodeURIComponent(Share._getURL(options));
+        return 'viber://forward?text=' + encodeURIComponent(JSShare._getURL(options));
     },
 
     email: function(options) {
         return 'mailto:?'
             + 'subject=' + encodeURIComponent(options.title)
-            + '&body='   + encodeURIComponent(Share._getURL(options))
+            + '&body='   + encodeURIComponent(JSShare._getURL(options))
                          + encodeURIComponent("\n" + options.text);
     },
 
