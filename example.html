@@ -10,14 +10,17 @@
     <title>JS-Share</title>
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="share.js"></script>
 
     <script><!--
-    jQuery(function($) {
-        $(document).on('click', '.social_share', function () {
-            Share.go(this);
-        });
+    document.addEventListener("DOMContentLoaded", function(event) {
+        var buttons = document.querySelectorAll(".social_share");
+        for(var i = 0; i < buttons.length; i++){
+            buttons[i].addEventListener('click', function() {
+                return Share.go(this, {'type': 'fb'});
+            }, false);
+        }
+
     });
     --></script>
 
@@ -31,7 +34,7 @@
     <div class="">
         <h1>JS-Share</h1>
         <p class="lead">
-            Easy to use javascript social and messanger share library. Supports VK.com, ok.ru, facebook.com, livejournal.com, Twitter, Google+, Mail.ru, Whatsapp, Telegram.
+            Easy to use javascript social and messanger share library. Supports VK.com, ok.ru, facebook.com, livejournal.com, Twitter, Google+, Mail.ru, Whatsapp, Telegram, Viber, Email.
         </p>
     </div>
 

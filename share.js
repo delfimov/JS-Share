@@ -1,25 +1,29 @@
 Share = {
     /**
-     * Показать пользователю дилог шаринга в сооветствии с опциями
-     * Метод для использования в inline-js в ссылках
-     * При блокировке всплывающего окна подставит нужный адрес и ползволит браузеру перейти по нему
-
-    // Minimum setup example:
-    <p>Поделиться:
-        <button class="social_share" data-type="vk">ВКонтакте</button>
+     *
+     * Minimum setup example:
+     *
+    <div>Share:
+        <button class="social_share" data-type="vk">VK.com</button>
         <button class="social_share" data-type="fb">Facebook</button>
         <button class="social_share" data-type="tw">Twitter</button>
         <button class="social_share" data-type="lj">LiveJournal</button>
-        <button class="social_share" data-type="ok">Одноклассники</button>
+        <button class="social_share" data-type="ok">ok.ru</button>
         <button class="social_share" data-type="mr">Mail.Ru</button>
         <button class="social_share" data-type="gg">Google+</button>
-    </p>
+        <button class="social_share" data-type="telegram">Telegram</button>
+        <button class="social_share" data-type="whatsapp">Whatsapp</button>
+        <button class="social_share" data-type="viber">Viber</button>
+        <button class="social_share" data-type="email">Email</button>
+    </div>
 
     $(document).on('click', '.social_share', function(){
-        Share.go(this);
+        return Share.go(this);
     });
 
-    // Inline example:
+     *
+     * Inline example:
+     *
     <a href="#" onclick="return share.go(this)" data-type="fb" data-fb-api-id="123">I like it</a>
 
      *
@@ -28,7 +32,6 @@ Share = {
      */
     go: function(element, options) {
         var self = Share,
-            $element = $(element),
             withoutPopup = [
                 'unknown',
                 'viber',
@@ -36,26 +39,26 @@ Share = {
                 'whatsapp',
                 'email'
             ],
-            tryLocation = true,
+            tryLocation = true, // should we try to redirect user to share link
             link,
             defaultOptions = {
-                type:        'vk',           // тип соцсети
+                type:        'vk',           // share type
                 fb_api_id:   '',             // Facebook API id
-                url:         '',             // url для шаринга
-                count_url:   location.href,  // для какой ссылки крутим счётчик
-                title:       document.title, // заголовок шаринга
-                image:       '',             // картинка шаринга
-                text:        '',             // текст шаринга
+                url:         '',             // url to share
+                title:       document.title, // title to share
+                image:       '',             // image to share
+                text:        '',             // text to share
                 utm_source:  '',
                 utm_medium:  '',
                 utm_campaign:'',
                 popup_width: 626,
                 popup_height:436
             };
-        options = $.extend(
-            defaultOptions,
-            $element.data(), // Если параметры заданы в data, то читаем их
-            options          // Параметры из вызова метода имеют наивысший приоритет
+
+        options = self._extend(
+            defaultOptions,                         // default options - low priority
+            self._getData(element, defaultOptions), // options from data-* attributes
+            options                                 // options from method call - highest proprity
         );
 
         if (typeof self[options.type] == 'undefined') {
@@ -64,23 +67,19 @@ Share = {
 
         link = self[options.type](options);
 
-        if (withoutPopup.indexOf(options.type) == -1) {
-            tryLocation = self._popup(link, options) === null;
+        if (withoutPopup.indexOf(options.type) == -1) {        // if we must try to open a popup window
+            tryLocation = self._popup(link, options) === null; // we try, and if we succeed, we will not redirect user to share link location
         }
 
-        if (tryLocation) {
-            // не надо открывать или не удалось открыть попап
-            if ( $element.is('a') ) {
-                // Если это <a>, то подставляем адрес и просим браузер продолжить переход по ссылке
-                $element.prop('href', link);
-                return true;
+        if (tryLocation) {                                          // ...otherwise:
+            if (element.tagName == 'A' && element.tagName == 'a') { // if element is <a> tag
+                element.setAttribute('href', link);                 // set attribute href
+                return true;                                        // and return true, so this tag will behave as a usual link
             } else {
-                // Если это не <a>, то пытаемся перейти по адресу
-                location.href = link;
+                location.href = link;                               // if it's not <a> tag, change location to redirect
                 return false;
             }
         } else {
-            // Попап успешно открыт, просим браузер не продолжать обработку
             return false;
         }
     },
@@ -112,24 +111,25 @@ Share = {
         return 'https://www.facebook.com/dialog/share?'
             +'app_id=' + options.fb_api_id
             +'&display=popup'
-            +'&href='        + encodeURIComponent(url)
-            +'&redirect_uri='+ encodeURIComponent(url);
+            +'&href='         + encodeURIComponent(url)
+            +'&redirect_uri=' + encodeURIComponent(url);
     },
 
     // Livejournal
     lj: function(options) {
         return 'http://livejournal.com/update.bml?'
-            + 'subject='        + encodeURIComponent(options.title)
-            + '&event='         + encodeURIComponent(options.text + '<br/><a href="' + Share._getURL(options) + '">' + options.title + '</a>')
+            + 'subject='      + encodeURIComponent(options.title)
+            + '&event='       + encodeURIComponent(options.text + '<br/><a href="' + Share._getURL(options) + '">' + options.title + '</a>')
             + '&transform=1';
     },
 
-    // Твиттер
+    // Twitter
     tw: function(options) {
+        var url = Share._getURL(options);
         return 'http://twitter.com/share?'
-            + 'text='      + encodeURIComponent(options.title)
-            + '&url='      + encodeURIComponent(Share._getURL(options))
-            + '&counturl=' + encodeURIComponent(options.count_url);
+            + 'text='         + encodeURIComponent(options.title)
+            + '&url='         + encodeURIComponent(url)
+            + '&counturl='    + encodeURIComponent(url);
     },
 
     // Mail.ru
@@ -163,8 +163,8 @@ Share = {
     email: function(options) {
         return 'mailto:?'
             + 'subject=' + encodeURIComponent(options.title)
-            + '&body='   + encodeURIComponent(Share._getURL(options)) + " \n"
-                         + encodeURIComponent(options.text);
+            + '&body='   + encodeURIComponent(Share._getURL(options))
+                         + encodeURIComponent("\n" + options.text);
     },
 
     _getURL: function(options) {
@@ -188,9 +188,41 @@ Share = {
         return url;
     },
 
-    // Открыть окно шаринга
+    // Open popup window for sharing
     _popup: function(url, _options) {
         return window.open(url,'','toolbar=0,status=0,scrollbars=1,width=' + _options.width + ',height=' + _options.height);
+    },
+
+    /**
+     * Object Extending Functionality
+     */
+    _extend: function(out) {
+        out = out || {};
+        for (var i = 1; i < arguments.length; i++) {
+            if (!arguments[i])
+                continue;
+
+            for (var key in arguments[i]) {
+                if (arguments[i].hasOwnProperty(key))
+                    out[key] = arguments[i][key];
+            }
+        }
+        return out;
+    },
+
+    /**
+     * Get data-attributes
+     */
+    _getData: function(el, defaultOptions) {
+        var data = {};
+        for (var key in defaultOptions) {
+            var value = el.getAttribute('data-' + key);
+            if (value !== null && typeof value != 'undefined') {
+                data[key] = value;
+            }
+        }
+        return data;
     }
+
 
 };

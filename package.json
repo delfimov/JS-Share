@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "Basic javascript social share library",
   "license": "MIT",
-  "homepage": "https://github.com/delfimov/JS-Share#readme",
+  "homepage": "https://github.com/delfimov/JS-Share",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/delfimov/JS-Share.git"
+    "url": "git@github.com:delfimov/JS-Share.git"
   },
   "scripts": {
   },
@@ -21,6 +21,5 @@
   "devDependencies": {
   },
   "dependencies": {
-  	"jquery": ">=1.6.0"
   }
 }
