@@ -1,6 +1,6 @@
 {
   "name": "js-share",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Basic javascript social share library",
   "license": "MIT",
   "homepage": "https://github.com/delfimov/JS-Share",
@@ -8,8 +8,7 @@
     "type": "git",
     "url": "git@github.com:delfimov/JS-Share.git"
   },
-  "scripts": {
-  },
+  "scripts": {},
   "author": {
     "email": "elfimov@gmail.com",
     "name": "Dmitry Elfimov",
@@ -18,8 +17,6 @@
   "bugs": {
     "url": "https://github.com/delfimov/JS-Share/issues"
   },
-  "devDependencies": {
-  },
-  "dependencies": {
-  }
+  "devDependencies": {},
+  "dependencies": {}
 }
