@@ -17,7 +17,7 @@
         var buttons = document.querySelectorAll(".social_share");
         for(var i = 0; i < buttons.length; i++){
             buttons[i].addEventListener('click', function() {
-                return Share.go(this, {'type': 'fb'});
+                return Share.go(this);
             }, false);
         }
 
