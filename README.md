@@ -6,7 +6,8 @@ Easy to use social networks and messenger apps sharing javascript library.
 * Small size
 * Vanilla javascript, no any dependencies
 * IE9+, Chrome, Safari, Firefox support
-* Only a single responsibility - sharing, CSS styling is up to you
+* Only a single responsibility - sharing
+* CSS styling is up to you
 
 
 ## How to install

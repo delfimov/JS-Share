@@ -37,7 +37,7 @@ JSShare = {
      * @param options Object - optional
      */
     go: function(element, options) {
-        var self = Share,
+        var self = JSShare,
             withoutPopup = [
                 'unknown',
                 'viber',
