@@ -31,8 +31,10 @@ Share = {
             $element = $(element),
             withoutPopup = [
                 'unknown',
+                'viber',
                 'telegram',
-                'whatsapp'
+                'whatsapp',
+                'email'
             ],
             tryLocation = true,
             link,
@@ -152,6 +154,17 @@ Share = {
 
     whatsapp: function (options) {
         return 'whatsapp://send?text=' + encodeURIComponent(Share._getURL(options));
+    },
+
+    viber: function (options) {
+        return 'viber://forward?text=' + encodeURIComponent(Share._getURL(options));
+    },
+
+    email: function(options) {
+        return 'mailto:?'
+            + 'subject=' + encodeURIComponent(options.title)
+            + '&body='   + encodeURIComponent(Share._getURL(options)) + " \n"
+                         + encodeURIComponent(options.text);
     },
 
     _getURL: function(options) {
