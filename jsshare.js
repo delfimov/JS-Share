@@ -229,6 +229,4 @@ JSShare = {
         }
         return data;
     }
-
-
 };

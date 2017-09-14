@@ -13,7 +13,7 @@ Easy to use social networks and messenger apps sharing javascript library.
 ## How to install
 
 The easiest way:
-```
+```bash
 npm install js-share
 ```
 
@@ -21,7 +21,7 @@ npm install js-share
 ## How to use
 
 HTML code:
-```
+```javascript
     <script src="jsshare.js"></script>
 
     <div>Share:
@@ -39,9 +39,39 @@ HTML code:
     </div>
 ```
 
+Javascript code:
+
+```javascript
+    document.addEventListener("DOMContentLoaded", function(event) {
+        var buttons = document.querySelectorAll(".social_share");
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].addEventListener('click', function() {
+                return JSShare.go(this);
+            }, false);
+        }
+    });
+```
+
+or 
+
+```javascript
+    document.addEventListener("DOMContentLoaded", function(event) {
+        var buttons = document.querySelectorAll(".social_share"),
+            options = {
+                url: 'http://www.example.com/fancy/url',
+                fb_api_id: '1234567890'
+            };
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].addEventListener('click', function() {
+                return JSShare.go(this, options);
+            }, false);
+        }
+    });
+```
+
 Data attributes:
 * `data-type` - where to share. Required. 
-* `data-fb_api_id` - Facebook API id. Required for Facebook. 
+* `data-fb_api_id` - Facebook API id. Required for Facebook (can be set on initialization). 
 * `data-url` - URL to share. Default is current page location (`location.href`).
 * `data-title` - title to share. Default is current page title (`document.title`). 
 * `data-text` - share description, only for vk, ok, lj, twitter, mailru, email. 
@@ -51,30 +81,23 @@ Data attributes:
 * `data-popup_width` - popup width. Default is `626` pixels.
 * `data-popup_height` - popup height. Default is `436` pixels.
 
-`data-title` and `data-text` are not required. Social networks will get all required info from [Open Graph](http://ogp.me/) metadata (`og:*` tags).
+Same options could be used on script initialization.
 
+`data-title` and `data-text` are optional and will be ignored by some services. 
+Social networks usually get all required info from [Open Graph](http://ogp.me/) metadata (`og:*` tags).
 
-Javascript code:
-```
-    document.addEventListener("DOMContentLoaded", function(event) {
-        var buttons = document.querySelectorAll(".social_share");
-        for(var i = 0; i < buttons.length; i++){
-            buttons[i].addEventListener('click', function() {
-                return JSShare.go(this);
-            }, false);
-        }
-    });
-```
 
 ## More examples
 
-```
+```html
     <button class="social_share" utm_source="messengers" data-utm_medium="telegram" data-type="telegram">Telegram</button>
     <button class="social_share" utm_source="messengers" data-utm_medium="whatsapp" data-type="whatsapp">Whatsapp</button>
     <button class="social_share" utm_source="messengers" data-utm_medium="viber" data-type="viber">Viber</button>
 ```
 
-```
+or
+
+```html
     <button class="social_share" utm_source="messengers" data-utm_medium="vk" data-url="http://www.example.com/fancy/url" data-type="vk">VK.com</button>
     <button class="social_share" utm_source="messengers" data-utm_medium="fb" data-url="http://www.example.com/fancy/url" data-type="fb" data-fb_api_id="1234567890">Facebook</button>
     <button class="social_share" utm_source="messengers" data-utm_medium="ok" data-url="http://www.example.com/fancy/url" data-type="ok">OK.ru</button>
