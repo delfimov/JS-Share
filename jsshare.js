@@ -196,7 +196,7 @@ JSShare = {
 
     // Open popup window for sharing
     _popup: function(url, _options) {
-        return window.open(url,'','toolbar=0,status=0,scrollbars=1,width=' + _options.width + ',height=' + _options.height);
+        return window.open(url,'','toolbar=0,status=0,scrollbars=1,width=' + _options.popup_width + ',height=' + _options.popup_height);
     },
 
     /**
