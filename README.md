@@ -4,26 +4,42 @@ Easy to use social networks and messenger apps sharing javascript library.
  
 ## Key features
 * Small size
-* Vanilla javascript, no any dependencies
+* Vanilla javascript
+* No dependency
 * IE9+, Chrome, Safari, Firefox support
-* Only a single responsibility - sharing
 * CSS styling is up to you
+* Supports AMD/CommonJS
 
+## Installation
 
-## How to install
+### Package Managers
 
-The easiest way:
+JavaScript Share supports [npm](https://www.npmjs.com/package/js-share) under the name `js-share`.
+
 ```bash
-npm install js-share
+npm install js-share --save
 ```
 
+### Direct download
 
-## How to use
+Download the script [here](https://github.com/delfimov/JS-Share/blob/master/src/jsshare.js) and include it (unless you are packaging scripts somehow else):
+
+```html
+<script src="/path/to/jsshare.js"></script>
+```
+
+**Do not include the script directly from GitHub (http://raw.github.com/...).** The file is being served as text/plain and as such being blocked
+in Internet Explorer on Windows 7 for instance (because of the wrong MIME type). Bottom line: GitHub is not a CDN.
+
+
+### Module Loaders
+
+JavaScript Share can also be loaded as an AMD or CommonJS module.
+
+## Basic Usage
 
 HTML code:
-```javascript
-    <script src="jsshare.js"></script>
-
+```html
     <div>Share:
         <button class="social_share" data-type="vk">VK.com</button>
         <button class="social_share" data-type="fb" data-fb_api_id="1234567890">Facebook</button>
@@ -42,31 +58,31 @@ HTML code:
 Javascript code:
 
 ```javascript
-    document.addEventListener("DOMContentLoaded", function(event) {
-        var buttons = document.querySelectorAll(".social_share");
-        for (var i = 0; i < buttons.length; i++) {
-            buttons[i].addEventListener('click', function() {
-                return JSShare.go(this);
-            }, false);
-        }
-    });
+import JSShare from "js-share";
+document.addEventListener("DOMContentLoaded", function(event) {
+  var buttons = document.querySelectorAll(".social_share");
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', function() {
+      return JSShare.go(this);
+    }, false);
+  }
+});
 ```
 
 or 
 
 ```javascript
-    document.addEventListener("DOMContentLoaded", function(event) {
-        var buttons = document.querySelectorAll(".social_share"),
-            options = {
-                url: 'http://www.example.com/fancy/url',
-                fb_api_id: '1234567890'
-            };
-        for (var i = 0; i < buttons.length; i++) {
-            buttons[i].addEventListener('click', function() {
-                return JSShare.go(this, options);
-            }, false);
-        }
-    });
+import JSShare from "js-share";
+document.addEventListener("DOMContentLoaded", function(event) {
+  var buttons = document.querySelectorAll(".social_share");
+  JSShare.options.url = "http://www.example.com/fancy/url";
+  JSShare.options.fb_api_id = "1234567890";
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', function() {
+      return JSShare.go(this, options);
+    }, false);
+  }
+});
 ```
 
 Data attributes:

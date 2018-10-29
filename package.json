@@ -2,8 +2,19 @@
   "name": "js-share",
   "version": "1.0.4",
   "description": "Basic javascript social share library",
+  "main": "src/jsshare.js",
   "license": "MIT",
   "homepage": "https://github.com/delfimov/JS-Share",
+  "keywords": [
+    "social",
+    "share",
+    "sharing",
+    "browser",
+    "amd",
+    "commonjs",
+    "client",
+    "js-share"
+  ],
   "repository": {
     "type": "git",
     "url": "git@github.com:delfimov/JS-Share.git"
