@@ -12,40 +12,31 @@
  *
  <div>Share:
  <button class="social_share" data-type="vk">VK.com</button>
- <button class="social_share" data-type="fb">Facebook</button>
- <button class="social_share" data-type="tw">Twitter</button>
- <button class="social_share" data-type="lj">LiveJournal</button>
+ <button class="social_share" data-type="facebook">Facebook</button>
+ <button class="social_share" data-type="twitter">Twitter</button>
+ <button class="social_share" data-type="livejournal">LiveJournal</button>
  <button class="social_share" data-type="ok">ok.ru</button>
- <button class="social_share" data-type="mr">Mail.Ru</button>
- <button class="social_share" data-type="gg">Google+</button>
+ <button class="social_share" data-type="mailru">Mail.Ru</button>
+ <button class="social_share" data-type="reddit">Reddit</button>
+ <button class="social_share" data-type="googleplus">Google+</button>
  <button class="social_share" data-type="telegram">Telegram</button>
  <button class="social_share" data-type="whatsapp">Whatsapp</button>
  <button class="social_share" data-type="viber">Viber</button>
  <button class="social_share" data-type="email">Email</button>
  </div>
 
- $(document).on('click', '.social_share', function(){
-   return JSShare.go(this);
- });
- const shareItems = document.querySelectorAll('.social_share');
- for (let i = 0; i < shareItems.length; i += 1) {
-  const shareItem = shareItems[i];
-  shareItem.addEventListener('click', function shareDiamonds(e) {
-    e.stopPropagation();
-    e.preventDefault();
-    console.log(jsshareNew.options);
-    return jsshareNew.go(this);
-  });
-}
+ var shareItems = document.querySelectorAll('.social_share');
+ for (var i = 0; i < shareItems.length; i += 1) {
+   shareItems[i].addEventListener('click', function share(e) {
+     return JSShare.go(this);
+   });
+ }
 
  *
  * Inline example:
  *
- <a href="#" onclick="return JSShare.go(this)" data-type="fb" data-fb-api-id="123">I like it</a>
+ <a href="#" onclick="return JSShare.go(this)" data-type="facebook">I like it</a>
 
- *
- * @param element Object - DOM element
- * @param options Object - optional
  */
 
 
@@ -60,9 +51,24 @@
     registeredInModuleLoader = true;
   }
   if (!registeredInModuleLoader) {
-    return factory();
+    return window.JSShare = factory();
   }
 }(function () {
+
+  /**
+   * indexOf for old browsers
+   */
+  if (!('indexOf' in Array.prototype)) {
+    Array.prototype.indexOf = function(find, i /*opt*/) {
+      if (i === undefined) i = 0;
+      if (i < 0) i += this.length;
+      if (i < 0) i = 0;
+      for (var n = this.length; i < n; i++)
+        if (i in this && this[i] === find)
+          return i;
+      return -1;
+    };
+  }
 
   /**
    * Object Extending Functionality
@@ -96,21 +102,6 @@
       }
     }
     return data;
-  }
-
-  /**
-   * indexOf for old browsers
-   */
-  if (!('indexOf' in Array.prototype)) {
-    Array.prototype.indexOf = function(find, i /*opt*/) {
-      if (i === undefined) i = 0;
-      if (i < 0) i += this.length;
-      if (i < 0) i = 0;
-      for (var n = this.length; i < n; i++)
-        if (i in this && this[i] === find)
-          return i;
-      return -1;
-    };
   }
 
   /**
@@ -153,14 +144,14 @@
 
   var social = {
     // default handler
-    unknown: function(options) {
+    unknown: function (options) {
       return encodeURIComponent(_getURL(options));
     },
 
     // vk.com - ВКонтакте
-    vk: function(options) {
-      return 'http://vkontakte.ru/share.php?'
-        + 'url=' + encodeURIComponent(_getURL(options))
+    vk: function (options) {
+      return 'http://vk.com/share.php'
+        + '?url=' + encodeURIComponent(_getURL(options))
         + '&title=' + encodeURIComponent(options.title)
         + '&description=' + encodeURIComponent(options.text)
         + '&image=' + encodeURIComponent(options.image)
@@ -168,73 +159,143 @@
     },
 
     // ok.ru - Одноклассники
-    ok: function(options) {
-      return 'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1'
-        + '&st.comments=' + encodeURIComponent(options.text)
-        + '&st._surl=' + encodeURIComponent(JSShare._getURL(options));
+    ok: function (options) {
+      return 'https://connect.ok.ru/offer'
+        + '?url=' + encodeURIComponent(_getURL(options))
+        + '&title=' + encodeURIComponent(options.title)
+        + '&description=' + encodeURIComponent(options.text)
+        + '&imageUrl=' + encodeURIComponent(options.image);
     },
 
     // Facebook
-    fb: function(options) {
-      var url = _getURL(options);
-      return 'https://www.facebook.com/dialog/share?'
-        + 'app_id=' + options.fb_api_id
-        + '&display=popup'
-        + '&href=' + encodeURIComponent(url)
-        + '&redirect_uri=' + encodeURIComponent(url);
+    fb: function (options) {
+      return 'https://www.facebook.com/sharer.php'
+        + '?u=' + encodeURIComponent(_getURL(options));
+    },
+
+    facebook: function (options) {
+      return 'https://www.facebook.com/sharer.php'
+        + '?u=' + encodeURIComponent(_getURL(options));
+    },
+
+    // ok.ru - Одноклассники
+    googlebookmarks: function (options) {
+      return 'https://www.google.com/bookmarks/mark'
+        + '?op=edit'
+        + '&bkmk=' + encodeURIComponent(_getURL(options))
+        + '&title=' + encodeURIComponent(options.title)
+        + '&annotation=' + encodeURIComponent(options.text)
+        + '&labels=';
     },
 
     // Livejournal
-    lj: function(options) {
-      return 'http://livejournal.com/update.bml?'
-        + 'subject=' + encodeURIComponent(options.title)
+    livejournal: function (options) {
+      return 'http://livejournal.com/update.bml'
+        + '?subject=' + encodeURIComponent(options.title)
         + '&event=' + encodeURIComponent(options.text + '<br/><a href="' + _getURL(options) + '">' + options.title + '</a>')
         + '&transform=1';
     },
 
+    // Tumblr
+    tumblr: function (options) {
+      return 'https://www.tumblr.com/widgets/share/tool'
+        + '?canonicalUrl=' + encodeURIComponent(_getURL(options))
+        + '&title=' + encodeURIComponent(options.title)
+        + '&caption=' + encodeURIComponent(options.text)
+        + '&tags=';
+    },
+
+    // Pinterest
+    pinterest: function (options) {
+      return 'http://pinterest.com/pin/create/link/'
+        + '?url=' + encodeURIComponent(_getURL(options));
+    },
+
+    // linkedin
+    linkedin: function (options) {
+      return 'https://www.linkedin.com/shareArticle'
+        + '?mini=true'
+        + '&url=' + encodeURIComponent(_getURL(options))
+        + '&title=' + encodeURIComponent(options.title)
+        + '&summary=' + encodeURIComponent(options.text);
+    },
+
+    // Reddit
+    reddit: function (options) {
+      return 'https://reddit.com/submit'
+        + '?url=' + encodeURIComponent(_getURL(options))
+        + '&title=' + encodeURIComponent(options.title);
+    },
+
     // Twitter
-    tw: function(options) {
+    twitter: function (options) {
       var url = _getURL(options);
-      return 'http://twitter.com/share?'
-        + 'text=' + encodeURIComponent(options.title)
+      return 'http://twitter.com/share'
+        + '?text=' + encodeURIComponent(options.title)
         + '&url=' + encodeURIComponent(url)
         + '&counturl=' + encodeURIComponent(url);
     },
 
     // Mail.ru
-    mailru: function(options) {
-      return 'http://connect.mail.ru/share?'
-        + 'url=' + encodeURIComponent(_getURL(options))
+    mailru: function (options) {
+      return 'http://connect.mail.ru/share'
+        + '?url=' + encodeURIComponent(_getURL(options))
         + '&title=' + encodeURIComponent(options.title)
         + '&description=' + encodeURIComponent(options.text)
         + '&imageurl=' + encodeURIComponent(options.image);
     },
 
     // Google+
-    gplus: function(options) {
-      return 'https://plus.google.com/share?url='
-        + encodeURIComponent(_getURL(options));
+    googleplus: function (options) {
+      return 'https://plus.google.com/share'
+        + '?url=' + encodeURIComponent(_getURL(options));
+    },
+
+    // Weibo
+    weibo: function (options) {
+      return 'http://service.weibo.com/share/share.php'
+        + '?url=' + encodeURIComponent(_getURL(options))
+        + '&title=' + encodeURIComponent(options.title)
+        + '&pic=' + encodeURIComponent(options.image);
     },
 
     // Telegram
-    telegram: function(options) {
-      return 'tg://msg_url?url=' + encodeURIComponent(_getURL(options));
+    telegram: function (options) {
+      return 'https://telegram.me/share/url'
+        + '?url=' + encodeURIComponent(_getURL(options))
+        + '&text=' + encodeURIComponent(options.title);
     },
 
     // WhatsApp
-    whatsapp: function(options) {
-      return 'whatsapp://send?text=' + encodeURIComponent(_getURL(options));
+    whatsapp: function (options) {
+      return 'https://wa.me/'
+        + '?text=' + encodeURIComponent(_getURL(options) + "\n" + options.title);
     },
 
     // Viber
-    viber: function(options) {
-      return 'viber://forward?text=' + encodeURIComponent(_getURL(options));
+    viber: function (options) {
+      return 'viber://forward'
+        + '?text=' + encodeURIComponent(_getURL(options) + "\n" + options.title);
+    },
+
+    // Skype
+    skype: function (options) {
+      return 'https://web.skype.com/share'
+        + '?url=' + encodeURIComponent(_getURL(options))
+        + '&text=' + encodeURIComponent(options.title);
+    },
+
+    // Line.me
+    line: function (options) {
+      return 'https://lineit.line.me/share/ui'
+        + '?url=' + encodeURIComponent(_getURL(options))
+        + '&text=' + encodeURIComponent(options.title);
     },
 
     // E-mail
-    email: function(options) {
-      return 'mailto:?'
-        + 'subject=' + encodeURIComponent(options.title)
+    email: function (options) {
+      return 'mailto:'
+        + '?subject=' + encodeURIComponent(options.title)
         + '&body=' + encodeURIComponent(_getURL(options))
         + encodeURIComponent("\n" + options.text);
     }
@@ -243,7 +304,6 @@
   function init() {
     var defaultOptions = {
       type: 'email',         // default share type
-      fb_api_id: '',         // Facebook API id
       url: '',               // url to share
       title: document.title, // title to share
       image: '',             // image to share
@@ -259,13 +319,15 @@
 
     function go(element, options) {
       var withoutPopup = [
-          'unknown',
-          'viber',
-          'telegram',
-          'whatsapp',
-          'email'
-        ];
-      var tryLocation = true; // should we try to redirect user to share link
+        'unknown',
+        'viber',
+        'telegram',
+        'whatsapp',
+        'email',
+        'skype',
+        'line'
+      ];
+      var tryLocation = true; // should we try to redirect user following share link
       var link;
 
       options = _extend(

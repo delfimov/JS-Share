@@ -1,6 +1,6 @@
 # JS-Share - social and messengers sharing 
 
-Easy to use social networks and messenger apps sharing javascript library.
+Easy to use social media share library. This project is intended to help you integrate sharing within your code.
  
 ## Key features
 * Small size
@@ -36,6 +36,28 @@ in Internet Explorer on Windows 7 for instance (because of the wrong MIME type).
 
 JavaScript Share can also be loaded as an AMD or CommonJS module.
 
+## Supported sharing platforms
+ * Facebook
+ * Twitter
+ * LinkedIn
+ * VK
+ * OKru
+ * Google+
+ * GoogleBookmarks
+ * Reddit
+ * Tumblr
+ * Pinterest
+ * Weibo
+ * Baidu
+ * Mail.Ru
+ * Line.me
+ * Telegram
+ * WhatsApp
+ * Viber
+ * Skype
+ * Email
+
+
 ## Basic Usage
 
 HTML code:
@@ -59,38 +81,35 @@ Javascript code:
 
 ```javascript
 import JSShare from "js-share";
-document.addEventListener("DOMContentLoaded", function(event) {
-  var buttons = document.querySelectorAll(".social_share");
-  for (var i = 0; i < buttons.length; i++) {
-    buttons[i].addEventListener('click', function() {
-      return JSShare.go(this);
-    }, false);
-  }
-});
+var shareItems = document.querySelectorAll('.social_share');
+for (var i = 0; i < shareItems.length; i += 1) {
+  shareItems[i].addEventListener('click', function share(e) {
+    return JSShare.go(this);
+  });
+}
+
 ```
 
 or 
 
 ```javascript
 import JSShare from "js-share";
-document.addEventListener("DOMContentLoaded", function(event) {
-  var buttons = document.querySelectorAll(".social_share");
-  JSShare.options.url = "http://www.example.com/fancy/url";
-  JSShare.options.fb_api_id = "1234567890";
-  for (var i = 0; i < buttons.length; i++) {
-    buttons[i].addEventListener('click', function() {
-      return JSShare.go(this, options);
-    }, false);
-  }
-});
+var shareItems = document.querySelectorAll('.social_share');
+JSShare.options.url = "http://www.example.com/fancy/url";
+for (var i = 0; i < shareItems.length; i += 1) {
+  shareItems[i].addEventListener('click', function share(e) {
+    return JSShare.go(this);
+  });
+}
 ```
+
+See working demo `example.html`.
 
 Data attributes:
 * `data-type` - where to share. Required. 
-* `data-fb_api_id` - Facebook API id. Required for Facebook (can be set on initialization). 
-* `data-url` - URL to share. Default is current page location (`location.href`).
-* `data-title` - title to share. Default is current page title (`document.title`). 
-* `data-text` - share description, only for vk, ok, lj, twitter, mailru, email. 
+* `data-url` - URL to share. Default value is the current page location (`location.href`).
+* `data-title` - title to share. Default is the current page title (`document.title`). 
+* `data-text` - share description. Only for vk, ok, googlebookmarks, lj, tumblr, linkedin, mailru, email. 
 * `data-utm_source` - utm_source for links. Default is none.
 * `data-utm_medium` -  utm_medium for links. Default is none.
 * `data-utm_campaign` - utm_campaign for links. Default is none.
@@ -100,7 +119,7 @@ Data attributes:
 Same options could be used on script initialization.
 
 `data-title` and `data-text` are optional and will be ignored by some services. 
-Social networks usually get all required info from [Open Graph](http://ogp.me/) metadata (`og:*` tags).
+Social networks usually get all required data from [Open Graph](http://ogp.me/) metadata (`og:*` tags).
 
 
 ## More examples
@@ -115,12 +134,9 @@ or
 
 ```html
     <button class="social_share" utm_source="messengers" data-utm_medium="vk" data-url="http://www.example.com/fancy/url" data-type="vk">VK.com</button>
-    <button class="social_share" utm_source="messengers" data-utm_medium="fb" data-url="http://www.example.com/fancy/url" data-type="fb" data-fb_api_id="1234567890">Facebook</button>
+    <button class="social_share" utm_source="messengers" data-utm_medium="fb" data-url="http://www.example.com/fancy/url" data-type="fb">Facebook</button>
     <button class="social_share" utm_source="messengers" data-utm_medium="ok" data-url="http://www.example.com/fancy/url" data-type="ok">OK.ru</button>
 ```
-
-
-See working demo `example.html`.
 
 
 ## License

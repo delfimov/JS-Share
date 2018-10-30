@@ -10,19 +10,6 @@
     <title>JS-Share</title>
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <script src="jsshare.js"></script>
-
-    <script><!--
-    document.addEventListener("DOMContentLoaded", function(event) {
-        var buttons = document.querySelectorAll(".social_share");
-        for(var i = 0; i < buttons.length; i++){
-            buttons[i].addEventListener('click', function() {
-                return JSShare.go(this);
-            }, false);
-        }
-    });
-    --></script>
-
 </head>
 
 <body>
@@ -33,9 +20,34 @@
     <div class="part-lead">
         <h1>JS-Share</h1>
         <p class="lead">
-            Easy to use javascript social and messanger share library. Supports VK.com, ok.ru, facebook.com, livejournal.com, Twitter, Google+, Mail.ru, Whatsapp, Telegram, Viber, Email.
+            Easy to use social media share library. This project is intended to help you integrate sharing within your code.
+        <br><br>
+            Supports:
+            <ul>
+            <li>Facebook</li>
+            <li>Twitter</li>
+            <li>LinkedIn</li>
+            <li>VK</li>
+            <li>OKru</li>
+            <li>Google+</li>
+            <li>GoogleBookmarks</li>
+            <li>Reddit</li>
+            <li>Tumblr</li>
+            <li>Pinterest</li>
+            <li>Weibo</li>
+            <li>Baidu</li>
+            <li>Mail.Ru</li>
+            <li>Line.me</li>
+            <li>Telegram</li>
+            <li>WhatsApp</li>
+            <li>Viber</li>
+            <li>Skype</li>
+            <li>Email</li>
+        </ul>
         </p>
     </div>
+
+    <br><br>
 
     <div class="part-example">
     <p>Share:
@@ -56,5 +68,17 @@
 
 </div>
 
+<script src="src/jsshare.js"></script>
+<script><!--
+document.addEventListener("DOMContentLoaded", function(event) {
+  var shareItems = document.querySelectorAll('.social_share');
+  for (var i = 0; i < shareItems.length; i += 1) {
+    shareItems[i].addEventListener('click', function share(e) {
+      console.log(this);
+      return JSShare.go(this);
+    });
+  }
+});
+--></script>
 </body>
 </html>
