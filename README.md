@@ -63,17 +63,26 @@ JavaScript Share can also be loaded as an AMD or CommonJS module.
 HTML code:
 ```html
     <div>Share:
-        <button class="social_share" data-type="vk">VK.com</button>
-        <button class="social_share" data-type="fb" data-fb_api_id="1234567890">Facebook</button>
-        <button class="social_share" data-type="tw">Twitter</button>
-        <button class="social_share" data-type="lj">LiveJournal</button>
-        <button class="social_share" data-type="ok">ok.ru</button>
-        <button class="social_share" data-type="mr">Mail.Ru</button>
-        <button class="social_share" data-type="gg">Google+</button>
-        <button class="social_share" data-type="telegram">Telegram</button>
-        <button class="social_share" data-type="whatsapp">Whatsapp</button>
-        <button class="social_share" data-type="viber">Viber</button>
-        <button class="social_share" data-type="email">Email</button>
+        <button class="btn btn-default social_share" data-type="fb">Facebook</button>
+        <button class="btn btn-default social_share" data-type="twitter">Twitter</button>
+        <button class="btn btn-default social_share" data-type="vk">VK.com</button>
+        <button class="btn btn-default social_share" data-type="ok">OK.ru</button>
+        <button class="btn btn-default social_share" data-type="mailru">Mail.Ru</button>
+        <button class="btn btn-default social_share" data-type="gplus">Google+</button>
+        <button class="btn btn-default social_share" data-type="googlebookmarks">Google Bookmarks</button>
+        <button class="btn btn-default social_share" data-type="livejournal">LiveJournal</button>
+        <button class="btn btn-default social_share" data-type="tumblr">Tumblr</button>
+        <button class="btn btn-default social_share" data-type="pinterest">Pinterest</button>
+        <button class="btn btn-default social_share" data-type="linkedin">LinkedIn</button>
+        <button class="btn btn-default social_share" data-type="reddit">Reddit</button>
+        <button class="btn btn-default social_share" data-type="mailru">Mail.ru</button>
+        <button class="btn btn-default social_share" data-type="weibo">Weibo</button>
+        <button class="btn btn-default social_share" data-type="line">Line.me</button>
+        <button class="btn btn-default social_share" data-type="skype">Skype</button>
+        <button class="btn btn-default social_share" data-type="telegram">Telegram</button>
+        <button class="btn btn-default social_share" data-type="whatsapp">Whatsapp</button>
+        <button class="btn btn-default social_share" data-type="viber">Viber</button>
+        <button class="btn btn-default social_share" data-type="email">Email</button>
     </div>
 ```
 

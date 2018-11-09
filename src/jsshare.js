@@ -178,7 +178,7 @@
         + '?u=' + encodeURIComponent(_getURL(options));
     },
 
-    // ok.ru - Одноклассники
+    // Google bookmarks
     googlebookmarks: function (options) {
       return 'https://www.google.com/bookmarks/mark'
         + '?op=edit'
