@@ -22,7 +22,7 @@
   "scripts": {
     "preversion": "",
     "version": "",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags && npm publish"
   },
   "author": {
     "email": "elfimov@gmail.com",
