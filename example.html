@@ -81,7 +81,7 @@
 <script><!--
 document.addEventListener("DOMContentLoaded", function(event) {
   var shareItems = document.querySelectorAll('.social_share');
-  var options = {url: 'https://github.com/', links: {telegram: 'tg://msg'}};
+  var options = {url: 'https://github.com/', link_telegram: 'tg://msg'};
   for (var i = 0; i < shareItems.length; i += 1) {
     shareItems[i].addEventListener('click', function share(e) {
       console.log(this);
