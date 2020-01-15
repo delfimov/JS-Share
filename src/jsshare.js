@@ -261,14 +261,14 @@
 
     // Telegram
     telegram: function (options) {
-      return 'https://telegram.me/share/url'
+      return options.link_telegram
         + '?url=' + encodeURIComponent(_getURL(options))
         + '&text=' + encodeURIComponent(options.title);
     },
 
     // WhatsApp
     whatsapp: function (options) {
-      return 'https://wa.me/'
+      return options.link_whatsapp
         + '?text=' + encodeURIComponent(_getURL(options) + "\n" + options.title);
     },
 
@@ -312,7 +312,9 @@
       utm_medium: '',
       utm_campaign: '',
       popup_width: 626,
-      popup_height: 436
+      popup_height: 436,
+      link_telegram: 'https://telegram.me/share/url',
+      link_whatsapp: 'https://wa.me/'
     };
 
     function api() {}
@@ -341,6 +343,7 @@
       }
 
       link = social[options.type](options);
+      console.log(link);
 
       if (withoutPopup.indexOf(options.type) === -1) { // if we must try to open a popup window we will try
         tryLocation = _popup(link, options) === null;
