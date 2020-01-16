@@ -262,8 +262,7 @@
     // Telegram
     telegram: function (options) {
       return options.link_telegram
-        + '?url=' + encodeURIComponent(_getURL(options))
-        + '&text=' + encodeURIComponent(options.title);
+        + '?text=' + encodeURIComponent(_getURL(options) + "\n" + options.title);
     },
 
     // WhatsApp

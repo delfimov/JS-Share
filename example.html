@@ -81,7 +81,14 @@
 <script><!--
 document.addEventListener("DOMContentLoaded", function(event) {
   var shareItems = document.querySelectorAll('.social_share');
-  var options = {url: 'https://github.com/', link_telegram: 'tg://msg', link_whatsapp: 'https://api.whatsapp.com/send'};
+  var isIOS = /iPad|iPhone|iPod/.test(navigator.platform)
+    || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var isAndroid = /(android)/i.test(navigator.userAgent);
+  var options = {};
+  if (isIOS || isAndroid) {
+    options.link_telegram = 'tg://msg';
+    options.link_whatsapp = 'whatsapp://send';
+  }
   for (var i = 0; i < shareItems.length; i += 1) {
     shareItems[i].addEventListener('click', function share(e) {
       console.log(this);
