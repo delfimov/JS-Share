@@ -343,7 +343,6 @@
       }
 
       link = social[options.type](options);
-      console.log(link);
 
       if (withoutPopup.indexOf(options.type) === -1) { // if we must try to open a popup window we will try
         tryLocation = _popup(link, options) === null;
