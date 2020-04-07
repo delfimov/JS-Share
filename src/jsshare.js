@@ -262,7 +262,7 @@
     // Telegram
     telegram: function (options) {
       return options.link_telegram
-        + '?text=' + encodeURIComponent(_getURL(options) + "\n" + options.title);
+        + '?url=' + encodeURIComponent(_getURL(options) + "\n" + options.title);
     },
 
     // WhatsApp
